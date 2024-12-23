@@ -1,0 +1,40 @@
+@media only screen and (min-width:200px) and (max-width:575px)  {
+    .accordion-button{
+        font-family: var(--secondary_font);
+        color:var(--maroon) !important;
+        font-size: 20px !important;
+        background-color: #F9F5EC !important;
+    } 
+    .accordion-item{
+        background-color: #F9F5EC !important;
+    }
+    .accordion-body>ul>li{
+        padding: 8px 0px;
+    }
+    .accordion-button:focus{
+        box-shadow: none !important ;
+    }
+
+    /* navbar */
+    .logo-mob img{
+        width: 80px;
+    }
+    .nav-fs-mob{
+        font-size: 20px;
+    }
+    /* home page */
+    .txt-mobsize{
+        font-size: 15px !important;
+    }
+    .statue-mob-size{
+        width: 150px !important;
+        height: 150px !important;
+    }
+    .small-head{
+        font-size: 20px;
+    }
+    /* login,register */
+    .mob-login-input{
+        width: 100% !important;
+    }
+}
