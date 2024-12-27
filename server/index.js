@@ -14,8 +14,12 @@ app.use("/upload/newly_img",express.static("upload/newly_img"))
 app.use("/upload/best_img",express.static("upload/best_img"))
 app.use(route)
 
-mongoose.connect('mongodb://127.0.0.1:27017/pdArts')
+mongoose.connect('mongodb+srv://kansarapradyumn:kansarapk2004@cluster0.mzmpv.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => {
         app.listen("8000")
         console.log('Connected!')
+    }).catch((err)=>{
+        console.log(err)
     });
+
+    // mongodb://127.0.0.1:27017/pdArts
