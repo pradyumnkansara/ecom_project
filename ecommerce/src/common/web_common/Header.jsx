@@ -15,7 +15,7 @@ export default function Header() {
             .then((finalRes) => {
                 setban(finalRes.bannerData)
                 setBaUrl(finalRes.banImgUrl)
-                console.log(finalRes)
+                // console.log(finalRes)
             })
     }
 

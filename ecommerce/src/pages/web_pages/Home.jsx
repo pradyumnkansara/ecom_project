@@ -24,7 +24,7 @@ export default function Home() {
             <StatueType />
             <SocialMedia />
             <Footer />
-            <NotificationContainer/>
+            <NotificationContainer />
         </>
     )
 }
@@ -36,11 +36,12 @@ function Category() {
         axios.get("http://localhost:8000/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
-                // console.log(finalRes)
+                // console.log(finalRes.dataView)
                 setCatData(finalRes.dataView)
                 setCatUrl(finalRes.CatImgUrl)
             })
     }, [])
+
     return (
         <>
             <Container fluid>
@@ -60,12 +61,14 @@ function Category() {
                                 catData.map((v, i) => {
                                     return (
                                         <Col xs={6} lg={3} key={i}>
-                                            <div className='cat_hov'>
-                                                <div className='overflow-hidden rounded-top-pill '>
-                                                    <img src={catUrl + v.catImg} alt="" height="430px" width="100%" className='rounded-top-pill' />
+                                            <Link to={`/product/${v._id}`} style={{ color: "black" }}>
+                                                <div className='cat_hov'>
+                                                    <div className='overflow-hidden rounded-top-pill '>
+                                                        <img src={catUrl + v.catImg} alt="" height="430px" width="100%" className='rounded-top-pill' />
+                                                    </div>
+                                                    <h4 className='text-uppercase text-center mt-3 fw-bolder'>{v.catName}</h4>
                                                 </div>
-                                                <h4 className='text-uppercase text-center mt-3 fw-bolder'>{v.catName}</h4>
-                                            </div>
+                                            </Link>
                                         </Col>
                                     )
                                 })
@@ -88,12 +91,12 @@ function Favourite() {
         axios.get("http://localhost:8000/best_seller/view-best_seller")
             .then((res) => res.data)
             .then((finalRes) => {
-                console.log(finalRes)
+                // console.log(finalRes)
                 setViewBestData(finalRes.dataView)
                 setImgUrl(finalRes.bestImgUrl)
             })
     }
-    
+
     useEffect(() => {
         bestSellerData()
     })
@@ -179,7 +182,7 @@ function Favourite() {
                                         return (
                                             <Col xs={6} lg={3} className=''>
                                                 <div style={{ width: "95%" }}>
-                                                    <Link to={`/product-detail/${v._id}`} style={{color:"black"}}>
+                                                    <Link to={`/product-detail/${v._id}`} style={{ color: "black" }}>
                                                         <div>
                                                             <img src={imgUrl + v.bestImg} alt="" width="100%" height="432px" />
                                                         </div>
@@ -188,7 +191,7 @@ function Favourite() {
                                                             ₹ {v.bestPrice}
                                                         </span>
                                                     </Link>
-                                                    <button className='text-uppercase fw-semibold w-100 border-0 text-white rounded-pill py-2 fs-6 fw-semibold my-3' onClick={()=>addToCart(v)} style={{ backgroundColor: "var(--maroon)" }}>
+                                                    <button className='text-uppercase fw-semibold w-100 border-0 text-white rounded-pill py-2 fs-6 fw-semibold my-3' onClick={() => addToCart(v)} style={{ backgroundColor: "var(--maroon)" }}>
                                                         add to cart
                                                     </button>
                                                 </div>
@@ -211,7 +214,7 @@ function NewlyLaunched() {
     let [newLaunch, setNewLaunch] = useState([]);
     let [imgUrl, setImgUrl] = useState('');
 
-    let{cart,setCart}=useContext(adminContext);
+    let { cart, setCart } = useContext(adminContext);
 
     let newLaunchData = () => {
         axios.get("http://localhost:8000/new_launched/view-new_launched")
@@ -317,7 +320,7 @@ function NewlyLaunched() {
                                                             ₹ {v.newlyPrice}
                                                         </span>
                                                     </Link>
-                                                    <button className='text-uppercase fw-semibold w-100 border-0 text-white rounded-pill py-2 fs-6 fw-semibold my-3' onClick={()=>addToCart(v)} style={{ backgroundColor: "var(--maroon)" }}>
+                                                    <button className='text-uppercase fw-semibold w-100 border-0 text-white rounded-pill py-2 fs-6 fw-semibold my-3' onClick={() => addToCart(v)} style={{ backgroundColor: "var(--maroon)" }}>
                                                         add to cart
                                                     </button>
                                                 </div>
@@ -342,7 +345,7 @@ function StatueType() {
         axios.get("http://localhost:8000/sub-cat/view-subCat")
             .then((res) => res.data)
             .then((finalRes) => {
-                console.log(finalRes)
+                // console.log(finalRes)
                 setStatue(finalRes.viewSub)
                 setStatueUrl(finalRes.subCatImgUrl)
             })
@@ -402,12 +405,14 @@ function StatueType() {
                                     statue.map((v, i) => {
                                         return (
                                             <Col xs={6} lg={2} key={i}>
-                                                <div className='cat_hov d-flex flex-column align-items-center'>
-                                                    <div className='overflow-hidden rounded-circle border statue-mob-size' style={{ width: "200px", height: "200px" }}>
-                                                        <img src={statueUrl + v.subCatImg} alt="" width="100%" height="100%" className='rounded-circle' />
+                                                <Link to={`/product/${v._id}`} style={{color:"black"}}>
+                                                    <div className='cat_hov d-flex flex-column align-items-center'>
+                                                        <div className='overflow-hidden rounded-circle border statue-mob-size' style={{ width: "200px", height: "200px" }}>
+                                                            <img src={statueUrl + v.subCatImg} alt="" width="100%" height="100%" className='rounded-circle' />
+                                                        </div>
+                                                        <h4 className='text-uppercase mt-3 fw-bolder small-head'>{v.subCatName}</h4>
                                                     </div>
-                                                    <h4 className='text-uppercase mt-3 fw-bolder small-head'>{v.subCatName}</h4>
-                                                </div>
+                                                </Link>
                                             </Col>
                                         )
                                     })

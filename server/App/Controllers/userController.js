@@ -2,7 +2,7 @@ const userModal = require("../Models/userModal");
 const { ObjectId } = require("mongodb");
 
 exports.addUser = async (req, res) => {
-    // console.log(req.body);
+    // console.log(req.body);n
 
     let userAdd = await userModal(req.body)
     userAdd.save().then((restApi) => {

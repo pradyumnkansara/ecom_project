@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import logo from "../../images/1.svg"
 import logo2 from "../../images/2.svg"
-import banner from "../../images/web_banner_chef_natasha_03.webp"
+import banner from "../../images/Metal Statues.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faChevronCircleUp, faCircleUser, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
@@ -10,12 +10,15 @@ import { Link, useLocation } from 'react-router-dom'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
 import Accordion from 'react-bootstrap/Accordion';
+import axios from 'axios'
 
 export default function NavBar() {
     let [show, setShow] = useState(false);
     let [navhead, setNavhead] = useState(false)
     let [arrowup, setArrowUp] = useState(false)
     let [search, setSearch] = useState(true)
+    let [catData, setCatData] = useState([])
+    let [subCatData, setSubCatData] = useState([])
     let location = useLocation()
 
     let handleClose = () => setShow(false);
@@ -45,6 +48,29 @@ export default function NavBar() {
 
     window.addEventListener("scroll", stickhead)
     window.addEventListener("scroll", arrowtop)
+
+    let catApi = () => {
+        axios.get("http://localhost:8000/category/view-category")
+            .then((res) => res.data)
+            .then((finalRes) => {
+                // console.log(finalRes.dataView)
+                setCatData(finalRes.dataView)
+            })
+    }
+
+    let subCatApi = () => {
+        axios.get("http://localhost:8000/sub-cat/view-subCat")
+            .then((res) => res.data)
+            .then((finalRes) => {
+                // console.log(finalRes.viewSub)
+                setSubCatData(finalRes.viewSub)
+            })
+    }
+
+    useEffect(() => {
+        catApi();
+        subCatApi();
+    }, [])
 
     return (
         <>
@@ -111,7 +137,7 @@ export default function NavBar() {
                                             <Col xs={4}>
                                                 <div className='d-flex align-items-center fs-4 justify-content-end'>
                                                     <div className='px-3' >
-                                                        <Link to={'/log-in'} style={{color:"var(--maroon)"}}>
+                                                        <Link to={'/log-in'} style={{ color: "var(--maroon)" }}>
                                                             <FontAwesomeIcon icon={faCircleUser} />
                                                         </Link>
                                                     </div>
@@ -119,7 +145,7 @@ export default function NavBar() {
                                                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                                                     </div>
                                                     <div className='px-3'>
-                                                        <Link to={'/cart'} style={{color:"var(--maroon)"}}>
+                                                        <Link to={'/cart'} style={{ color: "var(--maroon)" }}>
                                                             <FontAwesomeIcon icon={faShoppingBag} />
                                                         </Link>
                                                     </div>
@@ -158,41 +184,49 @@ export default function NavBar() {
                                             </Col>
                                             <Col lg={3}>
                                                 <div>
-                                                    <h2 className='text-uppercase' style={{ fontFamily: "var(--secondary_font)", color: "var(--maroon)" }}>shop by categories</h2>
+                                                    <h2 className='text-uppercase' style={{ fontFamily: "var(--secondary_font)", color: "var(--maroon)" }}>shop by metal categories</h2>
                                                     <ul className='p-0' style={{ listStyle: "none" }}>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Aluminium
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Brass
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Marble
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Wooden
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Iron
-                                                            </Link>
-                                                        </li>
+                                                        {
+                                                            catData.length >= 1
+                                                                ?
+                                                                catData.map((v, i) => {
+                                                                    return (
+                                                                        <li key={i}>
+                                                                            <Link to={`/product/${v._id}`} className='text-black fs-5 fw-medium'>
+                                                                                {v.catName}
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
+                                                                })
+                                                                :
+                                                                ""
+                                                        }
                                                     </ul>
                                                 </div>
                                             </Col>
                                             <Col lg={3}>
                                                 <div>
-                                                    <h2 className='text-uppercase' style={{ fontFamily: "var(--secondary_font)", color: "var(--maroon)" }}>shop by utility</h2>
-                                                    <ul className='p-0' style={{ listStyle: "none" }}>
-                                                        <li>
+                                                    <h2 className='text-uppercase' style={{ fontFamily: "var(--secondary_font)", color: "var(--maroon)" }}>shop by statue categories</h2>
+                                                    <ul className='p-0' style={{ listStyle: "none", overflowY: "scroll", height: "150px" }}>
+                                                        {
+                                                            subCatData.length >= 1
+                                                                ?
+                                                                Array.from(new Set(subCatData.map(v => v.subCatName))).map((name, i) => {
+                                                                    // Find the subCatId corresponding to the subCatName
+                                                                    const subCat = subCatData.find(v => v.subCatName === name);
+                                                                    return (
+                                                                        <li key={i}>
+                                                                            <Link to={`/product/${subCat._id}`} className='text-black fs-5 fw-medium'>
+                                                                                {name}
+                                                                            </Link>
+                                                                        </li>
+                                                                    );
+                                                                })
+                                                                :
+                                                                ""
+                                                        }
+
+                                                        {/* <li>
                                                             <Link className='text-black fs-5 fw-medium'>
                                                                 Home
                                                             </Link>
@@ -222,6 +256,16 @@ export default function NavBar() {
                                                                 Home
                                                             </Link>
                                                         </li>
+                                                        <li>
+                                                            <Link className='text-black fs-5 fw-medium'>
+                                                                Home
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link className='text-black fs-5 fw-medium'>
+                                                                Home
+                                                            </Link>
+                                                        </li> */}
                                                     </ul>
                                                 </div>
                                             </Col>

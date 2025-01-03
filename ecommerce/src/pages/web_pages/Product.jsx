@@ -3,7 +3,7 @@ import Footer from '../../common/web_common/Footer'
 import NavBar from '../../common/web_common/NavBar'
 import prod1 from '../../images/ganesh.png';
 import Accordion from 'react-bootstrap/Accordion';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { height } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
@@ -22,6 +22,9 @@ export default function Product() {
     // Filter states
     let [selectedCategories, setSelectedCategories] = useState([]);
     let [selectedSubCategories, setSelectedSubCategories] = useState([]);
+
+    let params=useParams();
+    // console.log(params.id)
 
     const handlePriceChange = (e) => {
         setSelectedPrice(e.target.value);
@@ -84,6 +87,31 @@ export default function Product() {
         subCatApi();
     }, [])
 
+    useEffect(() => {
+        if (params.id && catData.length > 0) {
+            const matchedCategory = catData.find(category => category._id === params.id);
+            if (matchedCategory) {
+                setSelectedCategories([matchedCategory.catName]);
+            }
+        }
+    }, [params.id, catData]);
+    
+    useEffect(() => {
+        if (params.id && subCatData.length > 0 && catData.length > 0) {
+            // Find the matched subcategory
+            const matchedSubCategory = subCatData.find(subCategory => subCategory._id === params.id);
+            if (matchedSubCategory) {
+                setSelectedSubCategories([matchedSubCategory.subCatName]);
+    
+                // Find the parent category of the matched subcategory
+                const parentCategory = catData.find(category => category._id === matchedSubCategory.catId);
+                if (parentCategory) {
+                    setSelectedCategories([parentCategory.catName]);
+                }
+            }
+        }
+    }, [params.id, subCatData, catData]);
+
     const filteredProducts = prod.filter(product => {
         // console.log(product.subCatId[0].catId[0].catName)
         const isCategoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.subCatId[0].catId[0].catName);
@@ -114,9 +142,9 @@ export default function Product() {
                                                             ?
                                                             catData.map((v, i) => {
                                                                 return (
-                                                                    <li className='text-black fs-5 fw-medium p-2 d-flex justify-content-between align-items-center'>
+                                                                    <li className='text-black fs-5 fw-medium p-2 d-flex justify-content-between align-items-center' key={i}>
                                                                         <span>{v.catName}</span>
-                                                                        <input type="checkbox" value={v.catName} style={{ transform: "scale(1.2)" }}  onChange={handleCategoryChange} />
+                                                                        <input type="checkbox" value={v.catName} style={{ transform: "scale(1.2)" }}  onChange={handleCategoryChange} checked={selectedCategories.includes(v.catName)}/>
                                                                     </li>
                                                                 )
                                                             })
@@ -136,7 +164,7 @@ export default function Product() {
                                                             Array.from(new Set(subCatData.map(v => v.subCatName))).map((name, i) => (
                                                                 <li className='text-black fs-5 fw-medium p-2 d-flex justify-content-between align-items-center' key={i}>
                                                                     <span>{name}</span>
-                                                                    <input type="checkbox" value={name} style={{ transform: "scale(1.2)" }} onChange={handleSubCategoryChange}/>
+                                                                    <input type="checkbox" value={name} style={{ transform: "scale(1.2)" }} onChange={handleSubCategoryChange} checked={selectedSubCategories.includes(name)}/>
                                                                 </li>
                                                             ))
                                                             :

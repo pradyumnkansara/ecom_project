@@ -40,7 +40,7 @@ let routes = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/product',
+    path: '/product/:id?',
     element: <Product />
   },
   {
