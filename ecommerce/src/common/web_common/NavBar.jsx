@@ -225,47 +225,6 @@ export default function NavBar() {
                                                                 :
                                                                 ""
                                                         }
-
-                                                        {/* <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className='text-black fs-5 fw-medium'>
-                                                                Home
-                                                            </Link>
-                                                        </li> */}
                                                     </ul>
                                                 </div>
                                             </Col>
@@ -392,31 +351,45 @@ export default function NavBar() {
                             <Accordion.Header>SHOP BY METAL</Accordion.Header>
                             <Accordion.Body className='p-0'>
                                 <ul style={{ listStyle: "none", backgroundColor: "#F9F5EC" }}>
-                                    <li>
-                                        <Link className='text-black fs-5 fw-medium'>
-                                            Aluminium
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link className='text-black fs-5 fw-medium'>
-                                            Brass
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link className='text-black fs-5 fw-medium'>
-                                            Marble
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link className='text-black fs-5 fw-medium'>
-                                            Iron
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link className='text-black fs-5 fw-medium'>
-                                            Wooden
-                                        </Link>
-                                    </li>
+                                    {
+                                        catData.length >= 1
+                                            ?
+                                            catData.map((v, i) => {
+                                                return (
+                                                    <li key={i}>
+                                                        <Link to={`/product/${v._id}`} className='text-black fs-5 fw-medium'>
+                                                            {v.catName}
+                                                        </Link>
+                                                    </li>
+                                                )
+                                            })
+                                            :
+                                            ""
+                                    }
+                                </ul>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="2">
+                            <Accordion.Header>SHOP BY STATUE</Accordion.Header>
+                            <Accordion.Body className='p-0'>
+                                <ul style={{ listStyle: "none",height:"360px", backgroundColor: "#F9F5EC" ,overflowY:"scroll"}}>
+                                    {
+                                        subCatData.length >= 1
+                                            ?
+                                            Array.from(new Set(subCatData.map(v => v.subCatName))).map((name, i) => {
+                                                // Find the subCatId corresponding to the subCatName
+                                                const subCat = subCatData.find(v => v.subCatName === name);
+                                                return (
+                                                    <li key={i}>
+                                                        <Link to={`/product/${subCat._id}`} className='text-black fs-5 fw-medium'>
+                                                            {name}
+                                                        </Link>
+                                                    </li>
+                                                );
+                                            })
+                                            :
+                                            ""
+                                    }
                                 </ul>
                             </Accordion.Body>
                         </Accordion.Item>

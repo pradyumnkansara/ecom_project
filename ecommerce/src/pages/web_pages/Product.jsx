@@ -263,7 +263,7 @@ function ProductBox({ props, prodUrl }) {
         <>
             <div>
                 <Link to={`/product-detail/${props._id}`} style={{ color: "black" }}>
-                    <div style={{ height: "430px" }}>
+                    <div className='length-mob' style={{ height: "430px" }}>
                         <img src={prodUrl + props.prodImg} alt="" width="100%" height="100%" />
                     </div>
                     <h5 className='text-uppercase fw-bold my-3'>{props.prodName}</h5>

@@ -37,4 +37,8 @@
     .mob-login-input{
         width: 100% !important;
     }
+    /* card length */
+    .length-mob{
+        height: 200px !important;
+    }
 }

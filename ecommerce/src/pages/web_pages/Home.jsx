@@ -63,8 +63,8 @@ function Category() {
                                         <Col xs={6} lg={3} key={i}>
                                             <Link to={`/product/${v._id}`} style={{ color: "black" }}>
                                                 <div className='cat_hov'>
-                                                    <div className='overflow-hidden rounded-top-pill '>
-                                                        <img src={catUrl + v.catImg} alt="" height="430px" width="100%" className='rounded-top-pill' />
+                                                    <div className='overflow-hidden rounded-top-pill length-mob' style={{height:"430px"}}>
+                                                        <img src={catUrl + v.catImg} alt="" height="100%" width="100%" className='rounded-top-pill' />
                                                     </div>
                                                     <h4 className='text-uppercase text-center mt-3 fw-bolder'>{v.catName}</h4>
                                                 </div>
@@ -131,7 +131,7 @@ function Favourite() {
         slidesToScroll: 1,
         autoplay: true,
         dots: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 200000,
         responsive: [
             {
                 breakpoint: 1024,
@@ -146,14 +146,16 @@ function Favourite() {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToScroll: 2,
+                    arrows:false
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    arrows:false
                 }
             }
             // You can unslick at a given breakpoint now by adding:
@@ -181,10 +183,10 @@ function Favourite() {
                                     viewBestData.map((v, i) => {
                                         return (
                                             <Col xs={6} lg={3} className=''>
-                                                <div style={{ width: "95%" }}>
+                                                <div className='' style={{ width: "95%" }}>
                                                     <Link to={`/product-detail/${v._id}`} style={{ color: "black" }}>
                                                         <div>
-                                                            <img src={imgUrl + v.bestImg} alt="" width="100%" height="432px" />
+                                                            <img src={imgUrl + v.bestImg} alt="" width="100%" height="432px" className='length-mob'/>
                                                         </div>
                                                         <h5 className='text-uppercase fw-bold my-3'>{v.bestName}</h5>
                                                         <span className='d-block fw-semibold fs-6'>
@@ -275,14 +277,16 @@ function NewlyLaunched() {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToScroll: 2,
+                    arrows:false
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    arrows:false
                 }
             }
             // You can unslick at a given breakpoint now by adding:
@@ -313,7 +317,7 @@ function NewlyLaunched() {
                                                 <div style={{ width: "95%" }}>
                                                     <Link to={`/product-detail/${v._id}`} style={{ color: "black" }}>
                                                         <div>
-                                                            <img src={imgUrl + v.newlyImg} alt="" width="100%" height="432px" />
+                                                            <img src={imgUrl + v.newlyImg} alt="" width="100%" height="432px" className='length-mob'/>
                                                         </div>
                                                         <h5 className='text-uppercase fw-bold my-3'>{v.newlyName}</h5>
                                                         <span className='d-block fw-semibold fs-6'>
@@ -372,14 +376,16 @@ function StatueType() {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 4,
-                    slidesToScroll: 2
+                    slidesToScroll: 2,
+                    arrows:false
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 1
+                    slidesToScroll: 1,
+                    arrows:false
                 }
             }
         ]
