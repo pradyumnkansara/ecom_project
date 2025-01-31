@@ -33,7 +33,7 @@ function Category() {
     let [catData, setCatData] = useState([])
     let [catUrl, setCatUrl] = useState('')
     useEffect(() => {
-        axios.get("http://localhost:8000/category/view-category")
+        axios.get("/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes.dataView)
@@ -88,7 +88,7 @@ function Favourite() {
     let { cart, setCart } = useContext(adminContext)
 
     let bestSellerData = () => {
-        axios.get("http://localhost:8000/best_seller/view-best_seller")
+        axios.get("/best_seller/view-best_seller")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)
@@ -99,7 +99,7 @@ function Favourite() {
 
     useEffect(() => {
         bestSellerData()
-    })
+    },[])
 
     let addToCart = (product) => {
         let filterProduct = cart.filter((v, i) => v.name == product.bestName)
@@ -219,7 +219,7 @@ function NewlyLaunched() {
     let { cart, setCart } = useContext(adminContext);
 
     let newLaunchData = () => {
-        axios.get("http://localhost:8000/new_launched/view-new_launched")
+        axios.get("/new_launched/view-new_launched")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)
@@ -346,7 +346,7 @@ function StatueType() {
     let [statue, setStatue] = useState([]);
     let [statueUrl, setStatueUrl] = useState('');
     useEffect(() => {
-        axios.get("http://localhost:8000/sub-cat/view-subCat")
+        axios.get("/sub-cat/view-subCat")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)

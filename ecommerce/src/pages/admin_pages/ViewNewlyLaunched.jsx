@@ -15,7 +15,7 @@ export default function ViewNewlyLaunched() {
     let [imgUrl, setImgUrl] = useState('');
 
     let viewNewLaunch = () => {
-        axios.get("http://localhost:8000/new_launched/view-new_launched")
+        axios.get("/new_launched/view-new_launched")
             .then((res) => res.data)
             .then((finalRes) => {
                 console.log(finalRes)
@@ -25,7 +25,7 @@ export default function ViewNewlyLaunched() {
     }
 
     let deleteNewLaunch = (id) => {
-        axios.delete(`http://localhost:8000/new_launched/delete-new_launched/${id}`)
+        axios.delete(`/new_launched/delete-new_launched/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 viewNewLaunch();

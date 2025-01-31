@@ -13,7 +13,7 @@ export default function Contactus() {
 
     let handleContactForm=(e)=>{
         e.preventDefault();
-        axios.post("http://localhost:8000/contact/contact-mail",contactForm)
+        axios.post("/contact/contact-mail",contactForm)
         .then((res)=>res.data)
         .then((finalRes)=>{
             console.log(finalRes)

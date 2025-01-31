@@ -25,6 +25,8 @@ function MainCart() {
     cart.forEach(element => {
         finaltot += (element.price * element.qty)
     });
+    let gstAmount = finaltot * 0.18; // 18% GST
+    let grandTotal = finaltot + gstAmount;
     let finalcart = cart.map((cartdetail, i) => {
         return (
             <ProdDetails cartdetail={cartdetail} index={i} key={i} />
@@ -72,19 +74,16 @@ function MainCart() {
                                         <th><h5 style={{ color: '#696969' }}>Rs {finaltot}</h5></th>
                                     </tr>
                                     <tr>
-                                        <th><h4 className='fw-bold'>Shipping</h4></th>
+                                        <th><h4 className='fw-bold'>Gst 18%</h4></th>
                                         <th>
                                             <h6 style={{ color: '#696969' }}>
-                                                Flat Rate <br />
-                                                Shipping to Rajasthan. <br />
-
-                                                Change address
+                                            Rs {gstAmount.toFixed(2)}
                                             </h6>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th><h4 className='fw-bold'>Total</h4></th>
-                                        <th><h5 style={{ color: '#696969' }}>Rs {finaltot}</h5></th>
+                                        <th><h5 style={{ color: '#696969' }}>Rs {grandTotal.toFixed(2)}</h5></th>
                                     </tr>
                                 </table>
                                 <div className='cart-btn'>
@@ -124,7 +123,7 @@ function ProdDetails({ cartdetail, index }) {
     return (
         <>
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{index+1}</th>
                 <td style={{ color: 'red', cursor: 'pointer', fontSize: '20px' }}>
                     <FontAwesomeIcon icon={faCircleXmark} onClick={deleteCart} />
                 </td>

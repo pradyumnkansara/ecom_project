@@ -15,7 +15,7 @@ export default function ViewProduct() {
     let [imgUrl, setImgUrl] = useState('');
 
     let viewProduct = () => {
-        axios.get("http://localhost:8000/product/view-product")
+        axios.get("/product/view-product")
             .then((res) => res.data)
             .then((finalRes) => {
                 setViewProdData(finalRes.viewprodData)
@@ -24,7 +24,7 @@ export default function ViewProduct() {
     }
 
     let deleteProduct = (id) => {
-        axios.delete(`http://localhost:8000/product/delete-product/${id}`)
+        axios.delete(`/product/delete-product/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 viewProduct();

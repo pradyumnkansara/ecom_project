@@ -40,11 +40,11 @@ export default function AddBestSeller() {
         })
 
         if (params.id !== "" && params.id !== undefined) {
-            axios.get(`http://localhost:8000/best_seller/update-best_seller/${params.id}`)
+            axios.get(`/best_seller/update-best_seller/${params.id}`)
                 .then((res) => res.data)
                 .then((finalRes) => {
                     setUpdateBest(finalRes.updateData);
-                    setImagePreview(`http://localhost:8000/upload/best_img/${finalRes.updateData.bestImg}`);
+                    setImagePreview(`/upload/best_img/${finalRes.updateData.bestImg}`);
                 })
         }
     }, [params.id])
@@ -62,7 +62,7 @@ export default function AddBestSeller() {
         e.preventDefault();
         let AllBestSeller = new FormData(e.target)
 
-        axios.post(`http://localhost:8000/best_seller/add-best_seller/?id=${params.id ?? ""}`, AllBestSeller)
+        axios.post(`/best_seller/add-best_seller/?id=${params.id ?? ""}`, AllBestSeller)
             .then((res) => res.data)
             .then((finalRes) => {
                 e.target.reset(); // Reset form inputs

@@ -15,7 +15,7 @@ export default function ViewBestSeller() {
     let [imgUrl, setImgUrl] = useState('');
 
     let viewBestSeller = () => {
-        axios.get("http://localhost:8000/best_seller/view-best_seller")
+        axios.get("/best_seller/view-best_seller")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)
@@ -25,7 +25,7 @@ export default function ViewBestSeller() {
     }
 
     let deleteBestSeller = (id) => {
-        axios.delete(`http://localhost:8000/best_seller/delete-best_seller/${id}`)
+        axios.delete(`/best_seller/delete-best_seller/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 viewBestSeller();

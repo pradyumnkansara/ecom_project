@@ -15,7 +15,7 @@ export default function ViewSubcategory() {
     let [imgUrl, setImgUrl] = useState('');
 
     let viewSubCategory = () => {
-        axios.get("http://localhost:8000/sub-cat/view-subCat")
+        axios.get("/sub-cat/view-subCat")
             .then((res) => res.data)
             .then((finalres) => {
                 setSubView(finalres.viewSub)
@@ -25,7 +25,7 @@ export default function ViewSubcategory() {
     }
 
     let deleteSubCategory = (id) => {
-        axios.delete(`http://localhost:8000/sub-cat/delete-subCat/${id}`)
+        axios.delete(`/sub-cat/delete-subCat/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 viewSubCategory();

@@ -10,12 +10,11 @@ export default function Header() {
     let [baUrl, setBaUrl] = useState('')
 
     let viewBan = () => {
-        axios.get("http://localhost:8000/banner/view-banner")
+        axios.get("/banner/view-banner")
             .then((res) => res.data)
             .then((finalRes) => {
                 setban(finalRes.bannerData)
                 setBaUrl(finalRes.banImgUrl)
-                // console.log(finalRes)
             })
     }
 

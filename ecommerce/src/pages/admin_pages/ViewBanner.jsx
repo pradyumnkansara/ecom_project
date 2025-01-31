@@ -14,7 +14,7 @@ export default function ViewBanner() {
     let [imgUrl, setImgurl] = useState('')
 
     let viewBan = () => {
-        axios.get("http://localhost:8000/banner/view-banner")
+        axios.get("/banner/view-banner")
             .then((res) => res.data)
             .then((finalRes) => {
                 setDataBanner(finalRes.bannerData)
@@ -23,7 +23,7 @@ export default function ViewBanner() {
     }
 
     let deleteBan = (id) => {
-        axios.delete(`http://localhost:8000/banner/delete-banner/${id}`)
+        axios.delete(`/banner/delete-banner/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 viewBan();

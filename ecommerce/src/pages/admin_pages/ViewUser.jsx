@@ -11,7 +11,7 @@ export default function ViewUser() {
     let [userData, setUserData] = useState([])
 
     let dataView = () => {
-        axios.get("http://localhost:8000/user/view-user")
+        axios.get("/user/view-user")
             .then((res) => res.data)
             .then((finalRes) => {
                 setUserData(finalRes.userView)
@@ -20,7 +20,7 @@ export default function ViewUser() {
 
     let delView = (id) => {
         console.log(id)
-        axios.delete(`http://localhost:8000/user/delete-user/${id}`)
+        axios.delete(`/user/delete-user/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)

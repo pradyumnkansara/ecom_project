@@ -39,11 +39,11 @@ export default function AddNewlyLaunched() {
         })
 
         if (params.id !== "" && params.id !== undefined) {
-            axios.get(`http://localhost:8000/new_launched/update-new_launched/${params.id}`)
+            axios.get(`/new_launched/update-new_launched/${params.id}`)
                 .then((res) => res.data)
                 .then((finalRes) => {
                     setUpdateNew(finalRes.updateData);
-                    setImagePreview(`http://localhost:8000/upload/newly_img/${finalRes.updateData.newlyImg}`);
+                    setImagePreview(`/upload/newly_img/${finalRes.updateData.newlyImg}`);
                 })
         }
 
@@ -62,7 +62,7 @@ export default function AddNewlyLaunched() {
         e.preventDefault();
         let AllNewLaunchedData = new FormData(e.target)
 
-        axios.post(`http://localhost:8000/new_launched/add-new_launched/?id=${params.id ?? ""}`, AllNewLaunchedData)
+        axios.post(`/new_launched/add-new_launched/?id=${params.id ?? ""}`, AllNewLaunchedData)
             .then((res) => res.data)
             .then((finalRes) => {
                 e.target.reset(); // Reset form inputs

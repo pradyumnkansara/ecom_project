@@ -30,9 +30,9 @@ function Details() {
     useEffect(() => {
         // Fetch data from both APIs
         Promise.all([
-            axios.get('http://localhost:8000/product/view-product'),
-            axios.get('http://localhost:8000/new_launched/view-new_launched'),
-            axios.get('http://localhost:8000/best_seller/view-best_seller')
+            axios.get('/product/view-product'),
+            axios.get('/new_launched/view-new_launched'),
+            axios.get('/best_seller/view-best_seller')
         ])
         .then(([productRes, newLaunchRes,bestSellerRes]) => {
             const productData = productRes.data.viewprodData || [];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import logo from "../../images/1.svg"
 import logo2 from "../../images/2.svg"
@@ -11,6 +11,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
 import Accordion from 'react-bootstrap/Accordion';
 import axios from 'axios'
+import { adminContext } from '../../context.jsx/AdminContext'
 
 export default function NavBar() {
     let [show, setShow] = useState(false);
@@ -21,9 +22,11 @@ export default function NavBar() {
     let [subCatData, setSubCatData] = useState([])
     let location = useLocation()
 
+    const { token,userId } = useContext(adminContext); // Check for login token
+    const isLoggedIn = !!token; // Boolean to track login state
+    
     let handleClose = () => setShow(false);
     let handleShow = () => setShow(true);
-
 
     let arrowtop = () => {
         if (window.scrollY >= 800) {
@@ -50,7 +53,7 @@ export default function NavBar() {
     window.addEventListener("scroll", arrowtop)
 
     let catApi = () => {
-        axios.get("http://localhost:8000/category/view-category")
+        axios.get("/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes.dataView)
@@ -59,7 +62,7 @@ export default function NavBar() {
     }
 
     let subCatApi = () => {
-        axios.get("http://localhost:8000/sub-cat/view-subCat")
+        axios.get("/sub-cat/view-subCat")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes.viewSub)
@@ -137,7 +140,7 @@ export default function NavBar() {
                                             <Col xs={4}>
                                                 <div className='d-flex align-items-center fs-4 justify-content-end'>
                                                     <div className='px-3' >
-                                                        <Link to={'/log-in'} style={{ color: "var(--maroon)" }}>
+                                                        <Link to={isLoggedIn ? `/profile/${userId}` : '/log-in'} style={{ color: "var(--maroon)" }}>
                                                             <FontAwesomeIcon icon={faCircleUser} />
                                                         </Link>
                                                     </div>
@@ -256,7 +259,7 @@ export default function NavBar() {
                         <Col xs={4}>
                             <div className='d-flex align-items-center nav-fs nav-fs-mob justify-content-end '>
                                 <div className='pe-2 pe-lg-3 nav-point'>
-                                    <Link to={'/log-in'} className={`${navhead
+                                    <Link to={isLoggedIn ? `/profile/${userId}` : '/log-in'} className={`${navhead
                                         ?
                                         'newnav'
                                         :

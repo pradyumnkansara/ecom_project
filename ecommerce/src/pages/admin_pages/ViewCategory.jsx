@@ -13,8 +13,9 @@ export default function ViewCategory() {
     let [view, setView] = useState([]);
     let [imgUrl, setImgurl] = useState('')
 
+    console.log(axios.defaults.headers,"ppppppppppppppppppppppppppppppppppppppp")
     let viewCat = () => {
-        axios.get("http://localhost:8000/category/view-category")
+        axios.get("/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
                 setView(finalRes.dataView);
@@ -24,7 +25,7 @@ export default function ViewCategory() {
     }
 
     let deleteCat = (id) => {
-        axios.delete(`http://localhost:8000/category/delete-category/${id}`)
+        axios.delete(`/category/delete-category/${id}`)
             .then((res) => res.data)
             .then((finalRes) => {
                 viewCat();

@@ -34,11 +34,11 @@ export default function AddBanner() {
             }
         )
         if (params.id !== "" && params.id !== undefined) {
-            axios.get(`http://localhost:8000/banner/update-banner/${params.id}`)
+            axios.get(`/banner/update-banner/${params.id}`)
                 .then((res) => res.data)
                 .then((finaRes) => {
                     setUpdateBan(finaRes.updateData)
-                    setImagePreview(`http://localhost:8000/upload/ban_img/${finaRes.updateData.banImg}`);
+                    setImagePreview(`/upload/ban_img/${finaRes.updateData.banImg}`);
                 })
         }
     }, [params.id])
@@ -57,7 +57,7 @@ export default function AddBanner() {
         e.preventDefault();
         let AllBannerData = new FormData(e.target)
 
-        axios.post(`http://localhost:8000/banner/add-banner/?id=${params.id ?? ""}`, AllBannerData)
+        axios.post(`/banner/add-banner/?id=${params.id ?? ""}`, AllBannerData)
             .then((res) => res.data)
             .then((finalRes) => {
                 e.target.reset(); // Reset form inputs

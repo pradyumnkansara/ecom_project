@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import NavBar from '../../common/web_common/NavBar'
 import Footer from '../../common/web_common/Footer'
 import { Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import  { adminContext } from '../../context.jsx/AdminContext'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 export default function Login() {
     const [loginData, setLoginData] = useState({ uEmail: "", uPassword: "" });
     const [loading, setLoading] = useState(false);
+    const { setToken } = useContext(adminContext);
+
+    let navigator=useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -23,15 +28,20 @@ export default function Login() {
 
         try {
             setLoading(true);
-            const res = await axios.post("http://localhost:8000/user/login", loginData);
+            
+            const res = await axios.post("/user/login-user", loginData);
             const finalRes = res.data;
-
-            if (finalRes.loginmatch && finalRes.loginmatch._id) {
-                alert("Login Successful");
+            console.log(res.data)
+            setToken(res.data.user.auth,finalRes.user.id);
+            if (finalRes.status === 1 && finalRes.user?.auth) {
+                NotificationManager.success("Login Successful");
                 // Save user data (e.g., using localStorage or state management library)
+                setTimeout(() => {
+                    navigator(`/profile/${finalRes.user.id}`)
+                }, 2000)
                 console.log("User Details:", finalRes);
             } else {
-                alert("Login Unsuccessful");
+                NotificationManager.error("Login Unsuccessful");
             }
         } catch (error) {
             console.error("Login Error:", error);
@@ -59,15 +69,15 @@ export default function Login() {
                     </div>
                     <form className='text-center mt-5' action="" onSubmit={loginForm}>
                         <div className='mb-4'>
-                            <label className='d-block mb-1 fw-semibold fs-6' style={{ marginRight: "165px", color: "var(--maroon)" }}>Username or e-mail</label>
-                            <input type="text" className='p-2 border mob-login-input rounded-pill' placeholder='Username or e-mail' name='uEmail' onChange={handleInputChange} style={{ width: "25%", background: "transparent" }} />
+                            <label className='d-block mb-1 fw-semibold fs-6' style={{ marginRight: "255px", color: "var(--maroon)" }}>e-mail</label>
+                            <input type="text" className='p-2 border mob-login-input rounded-pill' placeholder='e-mail' name='uEmail' onChange={handleInputChange} style={{ width: "25%", background: "transparent" }} />
                         </div>
                         <div>
                             <label className='d-block mb-1 fw-semibold fs-6' style={{ marginRight: "240px", color: "var(--maroon)" }}>password</label>
-                            <input type="password" className='p-2 border mob-login-input rounded-pill' placeholder='password' name='uPassword'  onChange={handleInputChange} style={{ width: "25%", background: "transparent" }} />
+                            <input type="text" className='p-2 border mob-login-input rounded-pill' placeholder='password' name='uPassword' onChange={handleInputChange} style={{ width: "25%", background: "transparent" }} />
                         </div>
                         <div className='mt-4'>
-                            <input type="submit" value={'Log In'}  className='mob-login-input rounded-pill p-2 border-0 fw-semibold text-white' style={{ width: "25%", backgroundColor: "var(--maroon)" }}/>
+                            <input type="submit" value={'Log In'} className='mob-login-input rounded-pill p-2 border-0 fw-semibold text-white' style={{ width: "25%", backgroundColor: "var(--maroon)" }} />
                         </div>
                     </form>
                     <div className='text-uppercase text-center fw-semibold text-decoration-underline mb-2 mt-4' style={{ wordSpacing: "8px" }}>
@@ -81,6 +91,7 @@ export default function Login() {
                 </Container>
             </Container>
             <Footer />
+            <NotificationContainer />
         </>
     )
 }

@@ -33,6 +33,7 @@ import AddBestSeller from './pages/admin_pages/AddBestSeller';
 import AddNewlyLaunched from './pages/admin_pages/AddNewlyLaunched';
 import ViewBestSeller from './pages/admin_pages/ViewBestSeller';
 import ViewNewlyLaunched from './pages/admin_pages/ViewNewlyLaunched';
+import Profile from './pages/web_pages/Profile';
 
 let routes = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ let routes = createBrowserRouter([
   {
     path: '/cart',
     element: <Cart />
+  },
+  {
+    path: '/profile/:id',
+    element: <Profile />
   },
   // admin pages
   {

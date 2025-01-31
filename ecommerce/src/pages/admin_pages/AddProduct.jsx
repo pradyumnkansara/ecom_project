@@ -37,13 +37,13 @@ export default function AddProduct() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8000/sub-cat/view-subCat")
+        axios.get("/sub-cat/view-subCat")
             .then((res) => res.data)
             .then((finalRes) => {
                 setSubCatData(finalRes.viewSub);
             })
 
-        axios.get("http://localhost:8000/category/view-category")
+        axios.get("/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
                 setCategories(finalRes.dataView);
@@ -91,7 +91,7 @@ export default function AddProduct() {
 
     let addProducts = (e) => {
         let AllProductData = new FormData(e.target)
-        axios.post(`http://localhost:8000/product/add-product/?id=${params.id ?? ""}`, AllProductData)
+        axios.post(`/product/add-product/?id=${params.id ?? ""}`, AllProductData)
             .then((res) => res.data)
             .then((finalres) => {
                 e.target.reset();
@@ -122,11 +122,11 @@ export default function AddProduct() {
             prodStatus: 1
         })
         if (params.id !== "" && params.id !== undefined) {
-            axios.get(`http://localhost:8000/product/update-product/${params.id}`)
+            axios.get(`/product/update-product/${params.id}`)
                 .then((res) => res.data)
                 .then((finalRes) => {
                     setUpdateProd(finalRes.updateData)
-                    setImagePreview(`http://localhost:8000/upload/prod_img/${finalRes.updateData.prodImg}`);
+                    setImagePreview(`/upload/prod_img/${finalRes.updateData.prodImg}`);
 
                     // Set category and filter subcategories for update
                     setSelectedCategory(finalRes.updateData.catId?.[0]);

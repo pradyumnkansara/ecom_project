@@ -1,3 +1,4 @@
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap'
 import Footer from '../../common/web_common/Footer'
 import NavBar from '../../common/web_common/NavBar'
@@ -47,7 +48,7 @@ export default function Product() {
     };
 
     let catApi = () => {
-        axios.get("http://localhost:8000/category/view-category")
+        axios.get("/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)
@@ -56,7 +57,7 @@ export default function Product() {
     }
 
     let productApi = () => {
-        axios.get("http://localhost:8000/product/view-product")
+        axios.get("/product/view-product")
             .then((res) => res.data)
             .then((finalRes) => {
                 setProd(finalRes.viewprodData)
@@ -73,7 +74,7 @@ export default function Product() {
     }
 
     let subCatApi = () => {
-        axios.get("http://localhost:8000/sub-cat/view-subCat")
+        axios.get("/sub-cat/view-subCat")
             .then((res) => res.data)
             .then((finalRes) => {
                 // console.log(finalRes)

@@ -24,7 +24,7 @@ export default function Register() {
       uPhone: ""
     })
     e.preventDefault();
-    axios.post("http://localhost:8000/user/add-user", userData)
+    axios.post("/user/add-user", userData)
       .then((res) => res.data)
       .then((finalRes) => {
         e.target.reset();

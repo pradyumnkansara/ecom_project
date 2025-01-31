@@ -36,18 +36,18 @@ export default function AddSubcategory() {
             subCatStatus: 1
         })
         if (params.id !== "" && params.id !== undefined) {
-            axios.get(`http://localhost:8000/sub-cat/update-subCat/${params.id}`)
+            axios.get(`/sub-cat/update-subCat/${params.id}`)
                 .then((res) => res.data)
                 .then((finalRes) => {
                     setUpSubCat(finalRes.updateData)
-                    setImagePreview(`http://localhost:8000/upload/subCat_img/${finalRes.updateData.subCatImg}`);
+                    setImagePreview(`/upload/subCat_img/${finalRes.updateData.subCatImg}`);
                     // console.log(finalRes)
                 })
         }
     }, [params.id])
 
     let catbox = () => {
-        axios.get("http://localhost:8000/category/view-category")
+        axios.get("/category/view-category")
             .then((res) => res.data)
             .then((finalRes) => {
                 setCatData(finalRes.dataView);
@@ -61,7 +61,7 @@ export default function AddSubcategory() {
 
     let addSubCategory = (e) => {
         let AllSubData = new FormData(e.target);
-        axios.post(`http://localhost:8000/sub-cat/add-subCat/?id=${params.id ?? ""}`, AllSubData)
+        axios.post(`/sub-cat/add-subCat/?id=${params.id ?? ""}`, AllSubData)
             .then((res) => res.data)
             .then((finalRes) => {
                 e.target.reset();

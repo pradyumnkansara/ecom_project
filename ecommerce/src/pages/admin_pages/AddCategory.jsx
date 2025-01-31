@@ -34,12 +34,12 @@ export default function AddCategory() {
         })
 
         if (params.id !== "" && params.id !== undefined)
-            axios.get(`http://localhost:8000/category/update-category/${params.id}`)
+            axios.get(`/category/update-category/${params.id}`)
                 .then((res) => res.data)
                 .then((finalRes) => {
                     // console.log(finalRes)
                     setUpdateCat(finalRes.updateData)
-                    setImagePreview(`http://localhost:8000/upload/cat_image/${finalRes.updateData.catImg}`); // Update the image preview
+                    setImagePreview(`/upload/cat_image/${finalRes.updateData.catImg}`); // Update the image preview
                 })
         // .catch((error) => {
         //     console.error('Error fetching category:', error);
@@ -57,7 +57,7 @@ export default function AddCategory() {
         // }
     
         // Add new category 
-        axios.post(`http://localhost:8000/category/add-category/?id=${params.id ?? ""}`, AllFormData)
+        axios.post(`/category/add-category/?id=${params.id ?? ""}`, AllFormData)
             .then((res) => res.data)
             .then((finalRes) => {
                 ev.target.reset();

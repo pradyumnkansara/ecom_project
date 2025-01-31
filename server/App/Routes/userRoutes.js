@@ -4,8 +4,8 @@ const { addUser, viewUser, deleteUser, login } = require('../Controllers/userCon
 let userRoute=express.Router();
 
 userRoute.post("/add-user",addUser);
-userRoute.get("/view-user",viewUser);
+userRoute.get("/view-user/:id?",viewUser);
 userRoute.delete("/delete-user/:id",deleteUser);
-userRoute.get('/login-user',login)
+userRoute.post('/login-user',login)
 
 module.exports=userRoute
