@@ -4,15 +4,19 @@ import logofoot from '../../images/1.svg'
 import { Link, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import Aos from 'aos'
 
 export default function Footer() {
     let location=useLocation()
     useEffect(()=>{
         window.scrollTo(0,0)
     },[location.pathname])
+    useEffect(()=>{
+        Aos.init({duration:2000})
+    },[])
     return (
         <>
-            <Container fluid className='foot-bg rounded-top-5 text-white py-5'>
+            <Container fluid className='foot-bg rounded-top-5 text-white py-5' data-aos="fade-up">
                 <Container className='border-bottom border-white pb-5'>
                     <Row className='justify-content-lg-between'>
                         <Col xs={12} lg={4} className='mb-5 mb-lg-0'>

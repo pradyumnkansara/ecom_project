@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../../common/web_common/NavBar'
 import Footer from '../../common/web_common/Footer'
 import { Container } from 'react-bootstrap'
 import axios from 'axios'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
+import Aos from 'aos'
 
 export default function Register() {
 
@@ -14,6 +15,10 @@ export default function Register() {
     uPassword: "",
     uPhone: ""
   })
+
+  useEffect(()=>{
+    Aos.init({duration:2000});
+  },[])
 
   let userRegister = (e) => {
     setUserData({
@@ -39,11 +44,11 @@ export default function Register() {
       <Container fluid className='my-5'>
         <Container>
           <div className='text-center'>
-            <h1 className='text-uppercase' style={{ color: "var(--maroon)", fontFamily: "var(--secondary_font)" }}>
+            <h1 className='text-uppercase' style={{ color: "var(--maroon)", fontFamily: "var(--secondary_font)" }}data-aos="fade-down">
               Create Account
             </h1>
           </div>
-          <form className='text-center mt-5' onSubmit={userRegister}>
+          <form className='text-center mt-5' onSubmit={userRegister} data-aos="fade-up">
             <div className='mb-4'>
               <input type="text" name='uFirstName' value={userData.uFirstName} onChange={(e) => {
                 let obj = { ...userData };

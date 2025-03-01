@@ -8,6 +8,7 @@ import { adminContext } from '../../context.jsx/AdminContext'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
+import Aos from 'aos'
 
 export default function Profile() {
     const { resetContext } = useContext(adminContext);
@@ -41,6 +42,7 @@ function ProfileDetails({ onLogout }) {
 
     useEffect(() => {
         // Fetch user details from the server
+        Aos.init({duration:2000});
         axios
             .get(`/user/view-user/${id}`)
             .then((response) => {
@@ -58,8 +60,8 @@ function ProfileDetails({ onLogout }) {
         <>
             <Container fluid>
                 <Container>
-                    <h1 className='text-capitalize text-center my-5 pt-3' style={{ fontFamily: "var(--secondary_font)", color: "var(--maroon)" }}>Profile</h1>
-                    <form action="" className='mb-5'>
+                    <h1 className='text-capitalize text-center my-5 pt-3' style={{ fontFamily: "var(--secondary_font)", color: "var(--maroon)" }} data-aos="fade-down">Profile</h1>
+                    <form action="" className='mb-5' data-aos="fade-up">
                         <Row>
                             <Col xs={12} lg={6}>
                                 <div className='text-center'>

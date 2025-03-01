@@ -11,11 +11,16 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import { adminContext } from '../../context.jsx/AdminContext';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import Aos from 'aos';
+
 
 export default function Home() {
+    useEffect(()=>{
+        Aos.init({duration:3000});
+    },[])
     return (
         <>
-            <Container fluid className='p-0' style={{ height: "100vh" }}>
+            <Container fluid className='p-0' style={{ height: "100vh" }} data-aos="fade-down">
                 <Header />
             </Container>
             <Category />
@@ -46,7 +51,7 @@ function Category() {
         <>
             <Container fluid>
                 <Container className='py-5 border-bottom border-secondary-subtle"'>
-                    <div className='text-center'>
+                    <div className='text-center' data-aos="fade-down">
                         <div className='text-uppercase fw-semibold fs-5 mb-2 mt-4'>
                             we are the manufacturer
                         </div>
@@ -54,7 +59,7 @@ function Category() {
                             shop by metals
                         </h1>
                     </div>
-                    <Row className='justify-content-center mt-5 cat-scroll'>
+                    <Row className='justify-content-center mt-5 cat-scroll' data-aos="fade-right">
                         {
                             catData.length >= 1
                                 ?
@@ -167,7 +172,7 @@ function Favourite() {
         <>
             <Container fluid>
                 <Container className='py-5 border-bottom'>
-                    <div className='text-center'>
+                    <div className='text-center' data-aos="fade-up">
                         <div className='text-uppercase fw-semibold fs-5 mb-2 mt-4'>
                             Best Sellers
                         </div>
@@ -175,7 +180,7 @@ function Favourite() {
                             our all time favourites
                         </h2>
                     </div>
-                    <Row className='justify-content-center mt-5 '>
+                    <Row className='justify-content-center mt-5 ' data-aos="fade-down">
                         <Slider {...slideFavourite}>
                             {
                                 viewBestData.length >= 1
@@ -298,7 +303,7 @@ function NewlyLaunched() {
         <>
             <Container fluid>
                 <Container className='py-5 border-bottom'>
-                    <div className='text-center'>
+                    <div className='text-center' data-aos="fade-down">
                         <div className='text-uppercase fw-semibold fs-5 mb-2 mt-4'>
                             New Products
                         </div>
@@ -306,7 +311,9 @@ function NewlyLaunched() {
                             our newly launched products
                         </h2>
                     </div>
-                    <Row className='justify-content-center mt-5'>
+                    <Row className='justify-content-center mt-5' data-aos="fade-right"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine">
                         <Slider {...newSlider}>
                             {
                                 newLaunch.length >= 1
@@ -395,7 +402,7 @@ function StatueType() {
         <>
             <Container fluid>
                 <Container className='py-5 border-bottom border-secondary-subtle'>
-                    <div className='text-center'>
+                    <div className='text-center' data-aos="fade-up">
                         <div className='text-uppercase fw-semibold fs-5 mb-2 mt-4'>
                             we are the manufacturer
                         </div>
@@ -403,8 +410,9 @@ function StatueType() {
                             types of statues
                         </h1>
                     </div>
-                    <Row className='justify-content-center mt-5 cat-scroll'>
-                        <Slider {...slideStatue}>
+                    <Row className='justify-content-center mt-5 cat-scroll' data-aos="fade-right"
+     data-aos-anchor-placement="top-bottom">
+                        <Slider {...slideStatue} >
                             {
                                 statue.length >= 1
                                     ?

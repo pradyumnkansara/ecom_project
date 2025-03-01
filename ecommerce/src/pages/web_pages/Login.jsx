@@ -1,23 +1,28 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NavBar from '../../common/web_common/NavBar'
 import Footer from '../../common/web_common/Footer'
 import { Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import  { adminContext } from '../../context.jsx/AdminContext'
+import { adminContext } from '../../context.jsx/AdminContext'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
+import Aos from 'aos'
 
 export default function Login() {
     const [loginData, setLoginData] = useState({ uEmail: "", uPassword: "" });
     const [loading, setLoading] = useState(false);
     const { setToken } = useContext(adminContext);
 
-    let navigator=useNavigate();
+    let navigator = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setLoginData({ ...loginData, [name]: value });
     };
+
+    useEffect(() => {
+        Aos.init();
+    }, [])
 
     const loginForm = async (event) => {
         event.preventDefault();
@@ -28,11 +33,11 @@ export default function Login() {
 
         try {
             setLoading(true);
-            
+
             const res = await axios.post("/user/login-user", loginData);
             const finalRes = res.data;
             console.log(res.data)
-            setToken(res.data.user.auth,finalRes.user.id);
+            setToken(res.data.user.auth, finalRes.user.id);
             if (finalRes.status === 1 && finalRes.user?.auth) {
                 NotificationManager.success("Login Successful");
                 // Save user data (e.g., using localStorage or state management library)
@@ -55,7 +60,9 @@ export default function Login() {
         <>
             <NavBar />
             <Container fluid>
-                <Container className='my-5 pb-5'>
+                <Container className='my-5 pb-5' data-aos="fade-down"
+                    data-aos-easing="linear"
+                    data-aos-duration="500">
                     <div className='text-center'>
                         <div className='text-uppercase fw-semibold fs-5 mb-2 mt-4' style={{ wordSpacing: "8px", letterSpacing: "2px" }}>
                             sign-in to pd-arts

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { adminContext } from '../../context.jsx/AdminContext';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import Aos from 'aos';
 
 export default function ProductDetail() {
     return (
@@ -26,6 +27,10 @@ function Details() {
     let { cart, setCart } = useContext(adminContext)
     
     let params = useParams()
+
+    useEffect(()=>{
+        Aos.init({duration:2000});
+    },[])
 
     useEffect(() => {
         // Fetch data from both APIs
@@ -100,14 +105,14 @@ function Details() {
             <Container fluid className='my-5'>
                 <Container>
                     <Row>
-                        <Col xs={12} lg={6}>
+                        <Col xs={12} lg={6} data-aos="fade-right">
                             <div>
                                 <figure>
                                     <img src={imageUrl} alt="" width="100%" />
                                 </figure>
                             </div> 
                         </Col>
-                        <Col xs={12} lg={6}>
+                        <Col xs={12} lg={6} data-aos="fade-left">
                             <div>
                                 <div className='border-secondary-subtle border-bottom'>
                                     <h2 className='text-capitalize mb-4' style={{ color: "var(--maroon)", fontFamily: "var(--secondary_font)" }}>

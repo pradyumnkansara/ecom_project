@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 import './index.css';
 import './media.css';
 import 'bootstrap/dist/css/bootstrap.css'

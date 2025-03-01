@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Footer from '../../common/web_common/Footer'
 import NavBar from '../../common/web_common/NavBar'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -7,8 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import productimg from '../../images/ganesh.png'
 import { adminContext } from '../../context.jsx/AdminContext'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
+import Aos from 'aos';
 
 export default function Cart() {
+    useEffect(()=>{
+        Aos.init({duration:2000});
+    },[])
     return (
         <>
             <NavBar />
@@ -39,14 +43,16 @@ function MainCart() {
                     <Row className='justify-content-center'>
                         <Col lg={6}>
                             <div className='text-center'>
-                                <h2 className='mb-4 fs-1' style={{ fontFamily: "var(--secondary_font)" }}>Cart</h2>
+                                <h2 className='mb-4 fs-1' style={{ fontFamily: "var(--secondary_font)",color:"var(--maroon)" }} data-aos="fade-down"
+                        data-aos-offset="300"
+                        data-aos-easing="ease-in-sine">Cart</h2>
                                 {/* <p style={{ color: '#696969', fontSize: '18px' }}>
                                     Our legal policies for our Digital Customers. We recommend you to read all the policies before purchasing any product from our website.
                                 </p> */}
                             </div>
                         </Col>
                     </Row>
-                    <div className='overflow-x-auto'>
+                    <div className='overflow-x-auto' data-aos="fade-right">
                         <table class="table table-bg my-5">
                             <thead>
                                 <tr>
@@ -64,7 +70,7 @@ function MainCart() {
                             </tbody>
                         </table>
                     </div>
-                    <Row className='justify-content-end'>
+                    <Row className='justify-content-end' data-aos="fade-left">
                         <Col lg={6} xs={12}>
                             <div>
                                 <h3>Cart Total</h3>

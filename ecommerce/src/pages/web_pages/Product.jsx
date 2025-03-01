@@ -10,6 +10,7 @@ import axios from 'axios';
 import { height } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { adminContext } from '../../context.jsx/AdminContext';
+import Aos from 'aos';
 
 export default function Product() {
     let [prod, setProd] = useState([])
@@ -86,6 +87,7 @@ export default function Product() {
         productApi();
         catApi();
         subCatApi();
+        Aos.init({ duration: 2000 });
     }, [])
 
     useEffect(() => {
@@ -127,9 +129,11 @@ export default function Product() {
             <NavBar />
             <Container fluid className='py-5'>
                 <Container>
-                    <h1 className='text-capitalise text-center mb-5' style={{ color: "var(--maroon)", fontFamily: "var(--secondary_font)" }}>Products</h1>
+                    <h1 className='text-capitalise text-center mb-5' style={{ color: "var(--maroon)", fontFamily: "var(--secondary_font)" }} data-aos="fade-down"
+                        data-aos-offset="300"
+                        data-aos-easing="ease-in-sine">Products</h1>
                     <Row>
-                        <Col xs={12} lg={3} className='mb-4 mb-lg-0'>
+                        <Col xs={12} lg={3} className='mb-4 mb-lg-0' data-aos="fade-right">
                             <div>
                                 <h3 className='text-capitalize fw-semibold mb-3' style={{ color: "var(--maroon)", fontFamily: "var(--secondary_font)" }}>Filter</h3>
                                 <div className='product'>
@@ -203,7 +207,7 @@ export default function Product() {
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={12} lg={9}>
+                        <Col xs={12} lg={9} data-aos="fade-left">
                             <div>
                                 <Row className='gy-5'>
                                     {
@@ -213,7 +217,7 @@ export default function Product() {
                                                 return (
                                                     <Col xs={6} lg={4}>
                                                         <div>
-                                                            <ProductBox props={v} key={i} prodUrl={prodUrl} />
+                                                            <ProductBox props={v} key={i} prodUrl={prodUrl}/>
                                                         </div>
                                                     </Col>
                                                 )
@@ -262,7 +266,7 @@ function ProductBox({ props, prodUrl }) {
     // console.log(prodUrl)
     return (
         <>
-            <div>
+            <div data-aos="zoom-in">
                 <Link to={`/product-detail/${props._id}`} style={{ color: "black" }}>
                     <div className='length-mob' style={{ height: "430px" }}>
                         <img src={prodUrl + props.prodImg} alt="" width="100%" height="100%" />
